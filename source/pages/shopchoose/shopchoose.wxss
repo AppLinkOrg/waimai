@@ -1,0 +1,25 @@
+.aa{
+
+color: #9baac6;
+
+}
+.bb{
+width:80%;border:1px solid #9baac6;margin-top:10rpx;margin-left:8rpx
+
+}
+.wxz{
+
+  color: #b8b6ba;
+}
+.xz{
+  font-weight: bolder;
+  color: black;
+  
+}
+.yr{
+  border-radius: 15rpx;
+}
+.db{
+border-top:1px solid #b8b6ba;
+
+}

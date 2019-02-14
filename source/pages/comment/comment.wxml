@@ -1,0 +1,92 @@
+<view class="padding-20 " style='border-bottom:2px solid #e5e5e5'>
+  <view class="flex-row flex-center">
+
+    <view>{{info.shop_name}}</view>
+    <view class="flex-1"></view>
+    <view class="h5">{{info.submit_time}}</view>
+  </view>
+  <view class="margin-top-10">{{info.goodssummary}}</view>
+
+</view>
+
+<view class="padding-20" style='border-bottom:2px solid #e5e5e5'>
+
+  <view class="flex-row">
+
+    <view class="flex-1"></view>
+    <view class="h4">为商家评分</view>
+    <view class="flex-1"></view>
+  </view>
+
+
+  <view class="flex-row margin-top-20">
+
+    <view class="flex-1"></view>
+    <view class="flex-row">
+
+      <view wx:for="{{5}}" wx:for-item="item1" wx:key="k" wx:for-index="idx">
+        <image bindtap='pingfen' wx:if="{{fenshu<=idx}}" id="{{idx}}" class='icon-40 ' src='{{uploadpath}}resource/{{res.manyidugray }}'></image>
+        <image bindtap='pingfen' wx:if="{{fenshu>idx}}" id="{{idx}}" class='icon-40 ' src='{{uploadpath}}resource/{{res.manyiducolor }}'></image>
+      </view>
+
+    </view>
+    <view class="flex-1"></view>
+  </view>
+
+  <view class="flex-row margin-top-20">
+
+    <view class="flex-1"></view>
+    <view class="">
+      <textarea value="{{inputVal}}" bindinput="shuru" placeholder="请写下您对商家的评价吧" class=" duohan">
+
+      </textarea>
+    </view>
+    <view class="flex-1"></view>
+  </view>
+
+</view>
+<view class="padding-20">
+  <view class="flex-row flex-center">
+
+    <view class="flex-1"></view>
+    <view class="h4">上传图片</view>
+    <view class="flex-1"></view>
+  </view>
+  <view class="flex-row  flex-center">
+
+    <view wx:if="{{start_photo.length==0||start_photo==undefined}}" style='' bindtap='startuploadimg'>
+      <image  class='icon-75 ' mode='aspectFill' src='{{uploadpath}}resource/{{res.tianjiatupian}}'></image>
+    </view>
+
+    <view class='flex-1'  bindtap='startuploadimg'>
+      <image style='width:200rpx;height:200rpx' class='addimg  {{start_photo.length==0||start_photo==undefined?"img":""}}' mode='aspectFill' src='{{uploadpath}}shop/{{start_photo[0]}}'></image>
+    </view>
+
+    <view class='flex-1'  bindtap='startuploadimg'>
+      <image style='width:90%;height:200rpx' class='addimg {{start_photo.length==0||start_photo==undefined?"img":""}}' mode='aspectFill' src='{{uploadpath}}shop/{{start_photo[1]}}'></image>
+    </view>
+
+    <view class='flex-1'  bindtap='startuploadimg'>
+      <image style='width:90%;height:200rpx' class='addimg {{start_photo.length==0||start_photo==undefined?"img":""}}' mode='aspectFill' src='{{uploadpath}}shop/{{start_photo[2]}}'></image>
+    </view>
+
+    <input hidden='true' name='photo' value='{{start_photo[0]}}'></input>
+    <input hidden='true' name='photo2' value='{{start_photo[1]}}'></input>
+    <input hidden='true' name='photo3' value='{{start_photo[2]}}'></input>
+
+  </view>
+
+</view>
+
+
+<view class='fixedbottom'>
+  <view class='padding-30'>
+    <view class='flex-row'>
+
+
+      <view class='flex-1'>
+        <button type='lv' bindtap='tijiao' class='txt-white'>提交</button>
+      </view>
+    </view>
+  </view>
+</view>

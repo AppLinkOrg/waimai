@@ -1,0 +1,25 @@
+<!--pages/feedback/feedback.wxml-->
+<form bindsubmit="confirm" bindreset="formReset" report-submit="{{true}}">
+
+
+
+<view class='padding-20' >
+  <view class='padding-10 txt-black'>您的建议使我们前进的方向，有您的帮助我们才能走的更远</view>
+  <view class='txt-gray h5 padding-10'>请仔细写下您的宝贵意见</view>
+  <textarea class='bg-gray padding-10 h5' name='yuanyin' maxlength='300' style='border-radius:10rpx;width:97%;'></textarea>
+</view>
+
+<view class='padding-20' >
+  <view class='padding-10 txt-black'>联系方式</view>
+  <view class='txt-gray h5 padding-10'>请留下您的手机号码，以便我们回复您。</view>
+  <view class='padding-10'>
+    <input class='bg-gray padding-5 h5' name='wechat' style='border-radius:10rpx;height:70rpx;'></input>
+  </view>
+</view>
+
+<view class='padding-20 btn'>
+<button class='text-center bg-primary txt-white ' form-type='submit' hover-class='bg-primary-1'  style='border-radius:10rpx;'>提交</button>
+</view>
+
+
+</form>

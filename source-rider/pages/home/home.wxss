@@ -1,0 +1,37 @@
+Page{
+  padding-top:80rpx;
+}
+.top{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+
+}
+.btn{
+  padding-top:10rpx;
+  padding-bottom: 10rpx;
+  padding-left: 20rpx;
+  padding-right: 20rxp;
+}
+.mid{
+  border-top:20rpx solid #CFCECF;
+}
+.bg_img{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.top_title{
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 100;
+}
+.bgshow{
+background: #5fe0a3;
+color: white;
+}

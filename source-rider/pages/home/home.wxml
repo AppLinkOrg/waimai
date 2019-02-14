@@ -1,0 +1,130 @@
+<view class='top flex-row column'>
+  <!-- <view class='bg-primary padding-20 text-center txt-bold txt-white '>
+    任务列表
+  </view> -->
+
+  <view class='flex-row flex-center  '>
+
+    <view class=' flex-1 flex-row flex-column padding-20 bg-white {{ctt==1?"bgshow":"" }}' wx:key="k" bindtap='bindcontact'>
+      <view class=' text-center  txt-gray {{ctt==1?"bgshow":"" }}  text-center h5' bindtap='bindcontact'>新任务</view>
+      <view wx:if='{{ctt==1}}' class='bg-primary'></view>
+    </view>
+
+    <view class=' flex-1 flex-row flex-column  padding-20 bg-white {{ctt==2?"bgshow":""}}' wx:key="k" bindtap='bindwaitcompleted'>
+      <view class=' text-center  txt-gray {{ctt==2?"bgshow":""}}  text-center h5'  bindtap='bindwaitcompleted'>已完成</view>
+      <view wx:if='{{ctt==2}}' class='bg-primary'></view>
+    </view>
+
+  </view>
+</view>
+
+
+
+
+
+
+
+<view wx:if='{{ctt==1}}'>
+
+<view wx:if='{{list.length==0}}' class='flex-row flex-column padding-40 margin-top'>
+  <image class='icon-75' src='{{uploadpath}}resource/{{res.order_null}}'></image>
+  <view class='margin-top-20'>暂无需配送订单</view>
+</view>
+
+
+
+<view wx:if='{{list.length>0}}'>
+
+<view  wx:for='{{list}}' wx:key='k' wx:for-index='idx'>
+  <view class='padding-30 {{idx!=0?"mid":""}}' style=''>
+
+    <view class='flex-row flex-center '>
+      <view class='txt-black flex-1'>订单号：{{item.orderno}}</view>
+      <view class='txt-black'>#{{item.id}}</view>
+    </view>
+
+    <view class='txt-black margin-top-10'>取餐：{{item.shop_name}}</view>
+
+    <view class='h5 txt-black margin-top-10 '>地址：{{item.shop_address}}</view>
+
+    <view style='height:2rpx;width:100%;' class='bg-primary margin-top-10'></view>
+
+    <view class='flex-row flex-center margin-top-10'>
+      <view class='flex-1 txt-black '>顾客：{{item.member_id_name}}</view>
+      <view class='h5 txt-black'>{{item.created_date}}</view>
+    </view>
+
+    <view class='h5 txt-black margin-top-10'>电话：{{item.shop_tel}}</view>
+    <view class='h5 txt-black margin-top-10'>地址：{{item.address_address}}</view>
+
+
+
+  </view>
+  <view style='height:2rpx;width:100%;' class='bg-primary margin-top-10'></view>
+  <view class='flex-row flex-center margin-30'>
+
+    <view wx:if='{{item.status=="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5 txt-primary margin-left-10 margin-right' hover-class='bg-primary txt-white' id='{{item.id}}' bindtap='updatesoncan' style='border:1rpx solid #5feda3'>点击送餐</view>
+
+    <view wx:if='{{item.status=="V"}}' class=' radius-10 flex-1 flex-row flex-column btn h5  bg-gray margin-left-10 margin-right'>送餐中</view>
+
+    <view wx:if='{{item.status!="S"&&item.status!="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5 margin-left-10 margin-right txt-primary' id='{{item.id}}' hover-class='bg-primary txt-white' style='border:1rpx solid #5feda3' bindtap='updatearrival'>点击已到达</view>
+
+    <view wx:if='{{item.status=="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5  bg-gray margin-left-10 margin-right'>未配送</view>
+
+  </view>
+</view>
+</view>
+</view>
+
+
+
+<view wx:if='{{ctt==2}}'>
+<view wx:if='{{wclist.length==0}}' class='flex-row flex-column padding-40 margin-top'>
+  <image class='icon-75' src='{{uploadpath}}resource/{{res.order_null}}'></image>
+  <view class='margin-top-20'>暂无已完成订单</view>
+</view>
+
+
+
+<view wx:if='{{wclist.length>0}}'>
+<view  wx:for='{{wclist}}' wx:key='k' wx:for-index='idx'>
+  <view class='padding-30 {{idx!=0?"mid":""}}' style=''>
+
+    <view class='flex-row flex-center '>
+      <view class='txt-black flex-1'>订单号：{{item.orderno}}</view>
+      <view class='txt-black'>#{{item.id}}</view>
+    </view>
+
+    <view class='txt-black margin-top-10'>取餐：{{item.shop_name}}</view>
+
+    <view class='h5 txt-black margin-top-10 '>地址：{{item.shop_address}}</view>
+
+    <view style='height:2rpx;width:100%;' class='bg-primary margin-top-10'></view>
+
+    <view class='flex-row flex-center margin-top-10'>
+      <view class='flex-1 txt-black '>顾客：{{item.member_id_name}}</view>
+      <view class='h5 txt-black'>{{item.created_date}}</view>
+    </view>
+
+    <view class='h5 txt-black margin-top-10'>电话：{{item.shop_tel}}</view>
+    <view class='h5 txt-black margin-top-10'>地址：{{item.address_address}}</view>
+
+
+
+  </view>
+  <view style='height:2rpx;width:100%;' class='bg-primary margin-top-10'></view>
+  <view class='flex-row flex-center margin-30'>
+
+    <view wx:if='{{item.status=="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5 txt-primary margin-left-10 margin-right' hover-class='bg-primary txt-white' id='{{item.id}}' bindtap='updatesoncan' style='border:1rpx solid #5feda3'>点击送餐</view>
+
+    <view wx:if='{{item.status=="V"}}' class=' radius-10 flex-1 flex-row flex-column btn h5  bg-gray margin-left-10 margin-right'>送餐中</view>
+
+    <view wx:if='{{item.status!="S"&&item.status!="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5 margin-left-10 margin-right txt-primary' id='{{item.id}}' hover-class='bg-primary txt-white' style='border:1rpx solid #5feda3' bindtap='updatearrival'>点击已到达</view>
+
+    <view wx:if='{{item.status=="K"}}' class=' radius-10 flex-1 flex-row flex-column btn h5  bg-gray margin-left-10 margin-right'>未配送</view>
+
+  </view>
+</view>
+
+</view>
+</view>

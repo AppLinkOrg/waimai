@@ -1,0 +1,83 @@
+<view wx:if="{{list.length==0}}" class='text-center'>
+  <view class=' margin-top-80'>
+    <image class='icon-50 margin-top-60' src='{{uploadpath}}resource/{{res.nodata}}'></image>
+  </view>
+  <view class='txt-gray h5 margin-top'>
+    您还没有订单哦
+  </view>
+  <view class='txt-gray h5 margin-top-40'>
+    <button size='mini' bindtap='gotoMenu'>去点个餐</button>
+  </view>
+</view>
+
+<view wx:if="{{list.length>0}}" wx:for="{{list}}" wx:key="k" class='margin-20' style='border-radius:10rpx;'>
+  <view class="padding-20 bg">
+    <view class="flex-row  bg margin-top-5  padding-bottom-20" style='border-bottom:1px solid #E6E6E6'>
+      <view class="flex-1 h5" style='color:#979797'>{{item.expresstype_name}} : {{item.orderno}}</view>
+      <view wx:if="{{item.status!='P'&&item.status!='K'}}" class="h5" style='color:#979797'>{{item.status_name}}</view>
+
+      <view wx:if="{{item.status=='P'}}" class="h5" style='color:#FF9800'>{{item.status_name}}</view>
+      <view wx:if="{{item.status=='K'}}" class="h5" style='color:#67E2A8'>{{item.status_name}}</view>
+    </view>
+  </view>
+
+
+  <view wx:if="{{item.status!='P'}}" class="padding-20 bg   ">
+
+    <view class='' bindtap='todetails' id='{{item.id}}' data-shop_id='{{item.shop_id}}'>
+      <view class="flex-row flex-center">
+        <view>
+          <image class='icon-40' src='{{uploadpath}}shop/{{item.shop_img}}'></image>
+        </view>
+        <view class="txt-black txt-bold flex-1 margin-left-20">{{item.shop_name}}</view>
+        <view class="h5 ">{{item.submit_time_formatting}}</view>
+      </view>
+
+      <view style='border-top:1rpx solid #E6E6E6;border-bottom:1rpx solid #E6E6E6;padding-top:15rpx;padding-bottom:15rpx;' class="flex-row flex-center margin-top-10">
+        <view class="h5">{{item.goodssummary}}</view>
+        <view class="margin-left-20 h5 flex-1"> 共{{item.goodscount}}件商品</view>
+        <view class=" padding-top-10  txt-black txt-bold">￥{{item.amount+item.expressfee}}</view>
+      </view>
+
+    </view>
+
+    <view class="flex-row margin-top-20">
+      <view class='flex-row flex-center '>
+        <view class='flex-1' style='width:500rpx;'></view>
+        <navigator url='/pages/menu/menu' class="again h5 margin-right-20 text-center" wx:if="{{item.status=='S'&&item.isanwser==''}}"> 再来一单</navigator>
+
+        <navigator url='/pages/comment/comment?id={{item.id}}' class="pingjia h5 text-center" wx:if="{{item.status=='S'&&item.isanwser==''}}"> 评价</navigator>
+        <navigator url='/pages/comment/comment?id={{item.id}}' class="topay h5 text-center" wx:if="{{item.status=='P'&&item.isanwser==''}}"> 去支付</navigator>
+      </view>
+      <!-- <navigator url='/pages/orderwaiting/orderwaiting?id={{item.id}}' class="qzf" style='color:#b27b83' wx:if="{{item.status!='P'}}"> 详情</navigator> -->
+    </view>
+
+
+  </view>
+
+
+
+  <view wx:if="{{item.status=='P'}}" class="padding-20 bg  ">
+    <view class="flex-row">
+      <view class="txt-black flex-3">{{item.shop_name}}</view>
+      <view class="h7 flex-1">{{item.submit_time_formatting}}</view>
+    </view>
+    <view class="flex-row margin-top-10">
+      <view class="h5">{{item.goodssummary}}</view>
+      <view class="margin-left-20 h5"> 共{{item.goodscount}}件商品</view>
+    </view>
+
+    <view class="flex-row margin-top-20">
+      <view class="flex-1 padding-top-10">￥{{item.amount+item.expressfee}}</view>
+      <navigator url='/pages/orderwaiting/orderwaiting?id={{item.id}}' class="qzf h5" style='color:#FF9800' wx:if="{{item.status=='P'}}"> 支付</navigator>
+
+
+      <!-- <navigator url='/pages/orderwaiting/orderwaiting?id={{item.id}}' class="qzf" style='color:#b27b83' wx:if="{{item.status!='P'}}"> 详情</navigator> -->
+    </view>
+  </view>
+
+
+
+
+
+</view>

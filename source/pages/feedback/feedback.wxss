@@ -1,0 +1,6 @@
+/* pages/feedback/feedback.wxss */
+.btn{
+  position: absolute;
+  bottom: 0;
+  width: 95%;
+}

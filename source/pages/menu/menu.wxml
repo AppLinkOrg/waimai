@@ -1,0 +1,384 @@
+<view class="flex-row flex-center" style='height:170rpx;'>
+  <view class=" padding-20" bindtap=''>
+    <image style='width:120rpx;height:120rpx' mode="aspectFill" class='sjimg  margin-left-20' src='{{uploadpath}}shop/{{currentshop.img}}'></image>
+  </view>
+  <view class=" padding-20 flex-wrap" bindtap=''>
+    <view class=" txt-black txt-bold">{{currentshop.name}}</view>
+    <view class="flex-row flex-center ">
+      <view style='width:60rpx;'>
+        <image class='icon-25   ' src='{{uploadpath}}resource/{{res.zhe}}'></image>
+      </view>
+      <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%'>{{currentshop.activity}}</view>
+    </view>
+  </view>
+  <view class="flex-1"></view>
+</view>
+<view style='border-top:5rpx solid #BBBBBB;' class="flex-row padding-top-20 flex-center">
+  <view class="flex-1"></view>
+  <view class="flex-1 text-center txt-bold txt-black padding-bottom-20 {{xz==0?'xz':'wxz'}}" bindtap='changetab' id="0">菜品</view>
+  <view class="flex-1"></view>
+  <view class="flex-1 text-center txt-bold txt-black padding-bottom-20 {{xz==1?'xz':'wxz'}}" bindtap='changetab' id="1">评价</view>
+  <view class="flex-1"></view>
+  <view class="flex-1 text-center txt-bold txt-black padding-bottom-20 {{xz==2?'xz':'wxz'}}" bindtap='changetab' id="2">商家</view>
+  <view class="flex-1"></view>
+</view>
+
+
+
+
+
+<swiper bindchange="huadon" current="{{xz}}" duration="200" class="bg gd " style='margin-top:5rpx'>
+  <swiper-item>
+    <block wx:if="{{qweqwe}}">
+      <view class="gwc " style='height:123rpx;'>
+        <view class="flex-row flex-center margin-left   ">
+          <view class="gwccc" bindtap='bindclosedetails2' wx:if="{{caipinzonshu!=0&&caipinzonshu!=''&&caipinzonshu!=undefind}}">{{caipinzonshu}}</view>
+          <view class="margin-left" bindtap='bindclosedetails2'>
+            <image class='icon-40' src='{{uploadpath}}resource/{{res.gouwuche1}}' style='margin-top:10rpx'></image>
+          </view>
+          <view class="margin-left-50    " style=''>
+            <view class="h4 txt-white">￥{{totalprice1}}</view>
+            <view class="h6 " style='color:#a7a4a9'>另需配送费￥5</view>
+          </view>
+          <view bindtap='gotoConfirm' class=" txt-white" style='margin-left:243rpx'>去结算</view>
+        </view>
+      </view>
+
+      <image class="gwc1 " mode='' style='height:113rpx;' src='{{uploadpath}}resource/{{res.gouwuche}}'></image>
+    </block>
+    <scroll-view class='menuopt'>
+
+      <view class='flex-row' style='height:100%'>
+        <!-- 分类列表 -->
+        <scroll-view scroll-y class='flex-1 bg-gray' style='height:100%;'>
+          <view wx:for="{{menu}}" wx:key="k" class='h5 text-center padding  {{item.id==selectcat_id?"xuanzhon":"txt-gray"}}' id="{{item.id}}" wx:for-index='idx' bindtap='gotoCat' style='position: relative'>
+            {{item.name}}
+            <view wx:if="{{shuzu[idx]>0}}" class="hondian h5">{{shuzu[idx]}}</view>
+            <!-- <view wx:for="{{item.goods}}" wx:key="k1" wx:for-item="item1" wx:for-index='idx' >
+              <view wx:if="{{item1.goods_id==car1.goods_id}}" wx:for="{{cartorder}}" wx:key="k2" wx:for-item="car1">
+                <view>
+                  {{car1.qwe}}
+                </view>
+              </view>
+            </view>  -->
+          </view>
+        </scroll-view>
+        <!-- 商品列表 -->
+        <scroll-view scroll-y class='flex-3   flex-row column ' bindscroll="goodsscroll" style='height:100%;' scroll-into-view="{{intocat_id}}">
+          <view class='padding-20' style='padding-bottom:150rpx;'>
+            <view wx:for="{{menu}}" wx:key="k">
+              <view id="cat_{{item.id}}">
+
+                <view class='flex-row flex-center'>
+
+                  <view class='margin-right'></view>
+                  <view class='flex-1 line bg-gray'></view>
+                </view>
+              </view>
+
+              <view style=''>
+                <view wx:for="{{item.goods}}" wx:key="k2" wx:for-item="goods" wx:for-index="idx" class='flex-row flex-center margin-top margin-bottom-20' id="{{goods.goods_id}}" style=''>
+                  <view bindtap='selectgoods1' id="{{goods.goods_id}}" data-id='{{goods.qwe}}'>
+                    <image class="zhaopian" src='{{uploadpath}}goods/{{goods.goods_photo}}'></image>
+                  </view>
+                  <view class='margin-right'></view>
+                  <view class='flex-1'>
+                    <view class=' txt-bold'>{{goods.goods_name}}</view>
+                    <view style='' class='h5 txt-gray margin-top-10 margin-bottom-10'>月销量:{{goods.qwe}}</view>
+
+                    <view class='flex-row flex-center'>
+                      <view class='flex-1 txt-bold'>¥{{goods.goods_price}}</view>
+                      <!-- <view wx:if="{{goods.ifnum>0}}">
+                        <image class='icon-25 padding-right-20 ' src='{{uploadpath}}resource/{{res.jianshao}}'></image>
+                      </view> -->
+
+                      <view wx:for="{{cartorder}}"  wx:key="k3" wx:for-item="car" wx:for-index="caridx">
+
+
+                        <view bindtap='jian' id="{{car.id}}" wx:if="{{goods.goods_id==car.goods_id&&goods.haveattr==0}}" class="flex-row ">
+                          <image class='icon-25 padding-right-20 ' src='{{uploadpath}}resource/{{res.jianshao}}'></image>
+                          <view style='margin-top:5rpx'>{{car.num}}</view>
+
+                        </view>
+
+                      </view>
+                      <!-- <view wx:if="{{goods.ifnum>0}}">{{goods.ifnum}}</view> -->
+                      <view wx:if="{{goods.haveattr==0}}" bindtap='selectgoods' id="{{goods.goods_id}}">
+                        <image class="icon-25 padding-left-20" src='{{uploadpath}}resource/{{res.zengjia}}'></image>
+                      </view>
+
+                      <view wx:if="{{goods.haveattr!=0}}" class="guige1 h5" bindtap='selectgoods' id="{{goods.goods_id}}">
+                        规格
+                      </view>
+
+                    </view>
+                  </view>
+                </view>
+              </view>
+
+            </view>
+          </view>
+        </scroll-view>
+
+      </view>
+
+
+    </scroll-view>
+
+  </swiper-item>
+
+
+  <swiper-item>
+
+    <scroll-view scroll-y style="height: 100%;">
+      <block wx:for="{{pinglunlist}}" wx:key="k">
+
+        <view style='border-bottom:1px solid #C4C4C4' class="padding-20">
+
+
+          <view class="flex-row  ">
+            <view style='width:70rpx'>
+              <image class='icon-30 ytx radius-50' src='{{item.member_avatarUrl}}'></image>
+            </view>
+
+            <view class="margin-left flex-1">
+              <view class="flex-row" style='width:600rpx'>
+                <view class="h5 flex-1 txt-black txt-bold">{{item.member_nickName}}</view>
+                <view class="h5">{{item.shopscoredate}}</view>
+              </view>
+
+              <view class="flex-row flex-center ">
+                <view class="h5">评分</view>
+                <view wx:for="{{5}}" wx:for-item="item1" wx:key="k" wx:for-index="idx">
+                  <image wx:if="{{item.score<=idx}}" class='icon-25 ' src='{{uploadpath}}resource/{{res.manyidugray }}'></image>
+                  <image wx:if="{{item.score>idx}}" class='icon-25 ' src='{{uploadpath}}resource/{{res.manyiducolor }}'></image>
+                </view>
+              </view>
+              <view class="h5 txt-black">{{item.content}}</view>
+
+              <view class="h5 txt-lv" hidden='{{item.Reply==""}}'>商家回复：
+                <text class="h5 txt-black">{{item.Reply}}</text>
+              </view>
+
+
+              <view class='flex-row flex-center {{item.picture==""||item.picture=="undefined"?"img":""}} margin-top-20'>
+                <view class='margin-left-10'>
+                  <image class='icon-75 ' bindtap='viewPhoto' id='{{uploadpath}}shop/{{item.picture}}' src='{{uploadpath}}shop/{{item.picture}}'></image>
+                </view>
+                <view class='margin-left-10'>
+                  <image class='icon-75 ' bindtap='viewPhoto' id='{{uploadpath}}shop/{{item.picture2}}' src='{{uploadpath}}shop/{{item.picture2}}'></image>
+                </view>
+                <view class='margin-left-10'>
+                  <image class='icon-75 ' bindtap='viewPhoto' id='{{uploadpath}}shop/{{item.picture3}}' src='{{uploadpath}}shop/{{item.picture3}}'></image>
+                </view>
+              </view>
+
+            </view>
+
+          </view>
+
+        </view>
+
+      </block>
+    </scroll-view>
+  </swiper-item>
+
+
+  <swiper-item>
+    <view class="padding-20" style='border-bottom:4rpx solid #bbbbbb '>
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.dizhi}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%;border-bottom:1px solid #bbbbbb'>{{currentshop.address}}</view>
+      </view>
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.dianhua}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%;border-bottom:1px solid #bbbbbb'>{{currentshop.tel}}</view>
+      </view>
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.yingye}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%;border-bottom:1px solid #bbbbbb'>
+          营业时间:{{currentshop.openning}}</view>
+      </view>
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.peison}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%'>
+          配送服务:有商家自行提供配送服务</view>
+      </view>
+
+
+    </view>
+    <view class="padding-20">
+      <view class="txt-bold">商家活动</view>
+      <view class="flex-row flex-center margin-top-20 ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.zhe}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%;border-bottom:1px solid #bbbbbb'>{{currentshop.activity}}</view>
+      </view>
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.hui}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%;border-bottom:1px solid #bbbbbb'>暂无优惠卷</view>
+      </view>
+
+      <view class="flex-row flex-center ">
+        <view style='width:60rpx;'>
+          <image class='icon-25   ' src='{{uploadpath}}resource/{{res.jian}}'></image>
+        </view>
+        <view class="padding-top-20  padding-bottom-20 margin-left-10 " style='width:100%'>暂无满减</view>
+      </view>
+
+    </view>
+  </swiper-item>
+
+
+</swiper>
+
+<view class='' animation='{{animationData}}' hidden='{{istrue==true}}'>
+   <view bindtap='quxiaol' class='bg1' style='height:100%'> 
+  </view>
+  <view class=' under guige'>
+    <view class="text-center margin-top-10  txt-blod">{{name}}</view>
+    <view wx:for="{{attrs}}" wx:key="k">
+      <view class=" margin-left-20  flex-1 ">{{item.name}}</view>
+      <view class="flex-row ">
+        <view class="flex-row flex-5 text-center flex-center flex-wrap">
+          <view class="padding-10 xx-{{val.selected}} margin-10" wx:for="{{item.vals}}" wx:key="k2" wx:for-item="val" bindtap='selectval' id="{{item.id}}_{{val.id}}">{{val.name}}</view>
+
+
+        </view>
+
+      </view>
+    </view>
+
+    <view class="flex-row flex-center padding-40 jiaru">
+      <view class="txt-black  flex-1">￥{{totalprice}}</view>
+      <view bindtap='addToCart1' class="  jrgwc txt-white">加入购物车</view>
+
+    </view>
+
+
+  </view>
+  <!-- <image class=' refuse icon-25 ' bindtap='bindclosedetails' src='{{uploadpath}}resource/{{res.refuse}}'></image> -->
+
+</view>
+<block hidden='{{istrue1==true}}'>
+  <view class='' animation='{{animationData}}' hidden='{{istrue1==true}}'>
+     <view bindtap='quxiaol' class='bg1' style='height:100%'>
+    </view> 
+    <view class=' under guige'>
+      <view class="height:350rpx " style='width:100%'>
+        <image style='width:100%;height:450rpx' class="" mode="" src='{{uploadpath}}goods/{{topbanner}}'></image>
+
+      </view>
+
+      <view class=" padding-20 txt-blod " style='height:150rpx;'>
+
+        <view class="txt-black">{{name}}</view>
+        <view class="h5">月销量:{{xiaolian}}</view>
+
+        <view class="h5">{{summary}}</view>
+      </view>
+
+
+      <view class="flex-row flex-center padding-20 jiaru">
+        <view class="txt-black  flex-1">￥{{totalprice}}</view>
+        <view bindtap='addToCart' class="  jrgwc txt-white">加入购物车</view>
+
+      </view>
+
+
+    </view>
+    <!-- <image class=' refuse icon-25 ' bindtap='bindclosedetails1' src='{{uploadpath}}resource/{{res.refuse}}'></image> -->
+
+  </view>
+</block>
+
+<view class='' animation='{{animationData}}' hidden='{{istrue2==true}}'>
+  <view bindtap='quxiaol' class='bg1' style='height:100%'>
+  </view>
+  <view class=' under1'>
+
+
+
+
+
+
+
+    <view class="bgg padding-20 flex-row flex-center ">
+      <view class="flex-1"></view>
+      <image bindtap='qingkon' class='icon padding-right-20 ' src='{{uploadpath}}resource/{{res.qingkon}}'></image>
+      <view bindtap='qingkon' style='color:#aca9ad'>清空购物车</view>
+    </view>
+    <view style='height:400rpx;'>
+      <view class="flex-row padding-20 flex-center bg" wx:for="{{cartorder}}" wx:key="k">
+
+        <view class="flex-1 ">
+
+          <view class="txt-black margin-top-5 flex-row   flex-center">
+            <view>
+              <view class="txt-bold txt-black  h5" style='width:300rpx;'>
+                {{item.goods_name}}
+              </view>
+              <view class='h6 ' style='width:300rpx;margin-left:10rpx'>{{item.valstr}}</view>
+            </view>
+
+            <view class='flex-1 flex-row    flex-center' style=''>
+              <view class="flex-1 "></view>
+              <block wx:if="{{item.havediscount=='Y'}}">
+                <view class="  txt-bold txt-red "  >￥{{item.oneprice}}</view>
+                <view class="  txt-gray h5 text-line-through margin-left">￥{{item.oldprice}}</view>
+              </block>
+              <block wx:else>
+                <view class=" txt-bold  " >￥{{item.oneprice}}</view>
+              </block>
+              <view class="flex-1"></view>
+            </view>
+            <view class='flex-row flex-center'>
+              <view bindtap='jian' id="{{item.id}}">
+                <image class='icon-25 padding-right-20 ' src='{{uploadpath}}resource/{{res.jianshao}}'></image>
+              </view>
+              <view class="text-center" style='width:50rpx;'>{{item.num}}</view>
+              <view bindtap='jia' id="{{item.id}}">
+                <image class='icon-25 padding-left-20  ' src='{{uploadpath}}resource/{{res.zengjia}}'></image>
+              </view>
+            </view>
+          </view>
+
+
+        </view>
+
+      </view>
+    </view>
+
+
+
+    <view class="  txt-blod">
+      <view class="gwc2   " style='height:123rpx;'>
+        <view class="flex-row flex-center margin-left   ">
+          <view class="margin-left" bindtap='bindclosedetails2'>
+            <view class="gwccc" wx:if="{{caipinzonshu!=0&&caipinzonshu!=''&&caipinzonshu!=undefind}}">{{caipinzonshu}}</view>
+            <image class='icon-40' src='{{uploadpath}}resource/{{res.gouwuche1}}' style='margin-top:25rpx'></image>
+          </view>
+          <view class="margin-left-50 " style='margin-top:12rpx'>
+            <view class="h4 txt-white">￥{{totalprice1}}</view>
+            <view class="h6" style='color:#a7a4a9'>另需配送费￥5</view>
+          </view>
+          <view bindtap='gotoConfirm' class=" txt-white" style='margin-left:245rpx;margin-top:15rpx'>去结算</view>
+        </view>
+      </view>
+
+      <image class="gwc3  " mode='' style='height:113rpx;' src='{{uploadpath}}resource/{{res.gouwuche}}'></image>
+    </view>
+  </view>
+
+</view>
